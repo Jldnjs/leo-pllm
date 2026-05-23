@@ -1,2 +1,2 @@
 # leo-pllm
-Secure internal AI assistant powered by private LLM for Leopard employees.
+Secure internal AI assistant powered by private LLM for Leo employees.
