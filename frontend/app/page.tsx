@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, MouseEvent } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   // 상태 관리: 비밀번호 표시 여부 및 배경 패턴 위치
@@ -21,6 +22,7 @@ export default function LoginPage() {
     e.preventDefault();
     // TODO: FastAPI 백엔드로 데이터 전송 로직 추가
     console.log("로그인 시도");
+    const router = useRouter();
 
     try {
       const response = await fetch("http://localhost:8000/login",
@@ -40,8 +42,13 @@ export default function LoginPage() {
         throw new Error(result.message || "로그인 실패");
       }
 
-      console.log("데이터:", result);
       alert(`${result.user.email}님 환영합니다. role : ${result.user.role}`);
+
+      if (result.user.role === "ADMIN") {
+        router.push("/admin");
+      } else {
+        router.push("/chat");
+      }
 
     }
     catch (error) {

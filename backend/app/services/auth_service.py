@@ -6,7 +6,7 @@ class AuthService:
                     "message": "Login success",
                     "user":{
                         "email" : email,
-                        "role" : "EMPLOYEE"
+                        "role" : "USER"
                     }}
         elif email == "b@leopard.co.kr" and password == "1111":
             return {"success": True,
