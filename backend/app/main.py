@@ -1,8 +1,11 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
+from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.services.auth_service import AuthService
 from app.schemas.auth_schema import LoginRequest
+from app.core.database import get_db
+
 
 app = FastAPI()
 auth_service = AuthService()
@@ -21,9 +24,9 @@ async def root():
     return {"message": "Leo LLM is running!"}
 
 @app.post("/login")
-async def login(data: LoginRequest):
+async def login(data: LoginRequest, db: Session = Depends(get_db)):
 
-    result = auth_service.login(data.email, data.password)
+    result = auth_service.login(data.email, data.password,db)
     if result["success"]:
         print("로그인 성공")
         return result

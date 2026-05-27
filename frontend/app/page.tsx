@@ -9,6 +9,7 @@ export default function LoginPage() {
   const [bgPosition, setBgPosition] = useState({ x: 0, y: 0 });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   // 마우스 이동 이벤트 핸들러 (패럴랙스 효과)
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
@@ -22,7 +23,6 @@ export default function LoginPage() {
     e.preventDefault();
     // TODO: FastAPI 백엔드로 데이터 전송 로직 추가
     console.log("로그인 시도");
-    const router = useRouter();
 
     try {
       const response = await fetch("http://localhost:8000/login",
