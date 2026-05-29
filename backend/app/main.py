@@ -1,11 +1,11 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, status
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.services.auth_service import AuthService
 from app.schemas.auth_schema import LoginRequest
 from app.core.database import get_db
-
+from app.routers.admin_router import router
 
 app = FastAPI()
 auth_service = AuthService()
@@ -32,3 +32,5 @@ async def login(data: LoginRequest, db: Session = Depends(get_db)):
         return result
     print("로그인실패")
     raise HTTPException(status_code=401, detail=result["message"])
+
+app.include_router(router)

@@ -42,6 +42,9 @@ export default function LoginPage() {
         throw new Error(result.message || "로그인 실패");
       }
 
+      document.cookie = `access_token=${result.access_token}; path=/; max-age=3600;`;
+      document.cookie = `user_role=${result.user.role}; path=/; max-age=3600;`;
+
       alert(`${result.user.email}님 환영합니다. role : ${result.user.role}`);
 
       if (result.user.role === "ADMIN") {
